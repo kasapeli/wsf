@@ -1,38 +1,55 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
+      inputs.gsr-ui-nix.nixosModules.default
     ];
 
+  # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Networking
   networking.hostName = "workstation";
-
   networking.networkmanager.enable = true;
 
+  # Time Zone
   time.timeZone = "Asia/Phnom_Penh";
 
   i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
 
+  # Display Services
   services.xserver.enable = true;
   programs.sway.enable = true;
   services.displayManager.ly.enable = true;
 
+  # Audio
   services.pipewire = {
     enable = true;
     pulse.enable = true;
   };
 
+  # TLP
+  services.power-profiles-daemon.enable = false;
+  services.tlp = {
+  enable = true;
+  settings = {
+    CPU_SCALING_GOVERNOR_ON_AC = "performance";
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+
+    CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+    CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    
+    START_CHARGE_THRESH_BAT0 = 40;
+    STOP_CHARGE_THRESH_BAT0 = 80;
+    };
+  };
+  
   users.users.yan = {
      isNormalUser = true;
      extraGroups = [ "wheel" "networkmanager" ];
@@ -41,10 +58,16 @@
      ];
    };
 
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+   
+  programs.gpu-screen-recorder = {
+    package = inputs.gsr-ui-nix.packages.${pkgs.stdenv.hostPlatform.system}.gpu-screen-recorder;
+    enable = true;
+    ui.enable = true;
+  };
+  
+ environment.systemPackages = with pkgs; [
+   acpi
+  ];
 
   services.openssh.enable = true;
   programs.ssh.startAgent = true;

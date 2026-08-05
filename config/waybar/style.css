@@ -1,0 +1,30 @@
+* {
+    all: unset;
+    border: none;
+    font-size: 13px;
+}
+
+window#waybar {
+    background-color: rgba(24, 23, 31, 0.7);
+    border-radius: 5px;
+}
+
+#workspaces button {
+    padding: 0 10px;
+    background: transparent;
+    color: #ffffff;
+}
+
+#mpris {
+   padding: 0 30px
+}
+
+#workspaces button.focused {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.modules-left, .modules-right, modules-center {
+    color: #ffffff;
+    margin: 0 10px;
+    padding: 0 5px;
+}

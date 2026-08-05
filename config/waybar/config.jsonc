@@ -1,0 +1,90 @@
+{
+  "layer": "top",
+  "position": "top",
+  "margin-top": 5,
+  "height": 30,
+  "width": 1905,
+  "spacing": 10,
+
+  "modules-left": [
+    "sway/workspaces"
+  ],
+
+  "modules-center": [
+    "clock"
+  ],
+
+  "modules-right": [
+    "mpris",
+    "pulseaudio",
+    "battery"
+  ],
+
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "tooltip": false
+  },
+
+ "mpris": {
+    "format": "{status_icon} {title} - {artist}",
+    "format-paused": "(status_icon} {title} - {artist}",
+    "max-length": 40,
+    "status-icons": {
+        "playing": " ",
+        "paused": "⏸",
+        "stopped": "⏹"
+    }
+  }, 
+
+
+  "network": {
+    "format-wifi": "   {essid}",
+    "format-disconnected": "⚠   Disconnected",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "tooltip": false
+  },
+
+  "pulseaudio": {
+    "format": "{icon}     {volume}%",
+    "format-muted": "    Muted",
+    "format-icons": {
+      "default": ["", ""]
+    },
+    "on-click": "pavucontrol",
+    "tooltip": false
+  },
+
+  "battery": {
+    "format": "|   {icon}     {capacity}%",
+    "format-charging": "|   {icon} 󱐋   {capacity}%", 
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": false
+  },
+
+ "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "default": ":D"
+    },
+    "persistent-workspaces": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [],
+        "5": []
+      }
+  },
+
+  "tray": {
+    "spacing": 10
+  }
+}
+

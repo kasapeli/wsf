@@ -1,0 +1,116 @@
+# Color Variables
+set $bg_dark      #232135
+set $fg_light     #e0f7fa
+set $mint_bright  #a7f3d0
+set $mint_muted   #6b9080
+set $gray_cool    #3a3750
+set $gray_text    #888699
+
+# Autostart
+exec_always mako
+exec gsr-ui
+exec_always awww-daemon
+
+# Variables
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $term foot fish
+set $menu rofi -show drun
+
+# Bindings
+# -- Basics
+bindsym $mod+Grave exec $term
+bindsym $mod+q kill
+bindsym $mod+d exec $menu
+bindsym $mod+Shift+r reload
+bindsym $mod+Shift+m swaymsg exit
+
+# -- Windows
+bindsym $mod+$left focus left
+bindsym $mod+$right focus right
+bindsym $mod+$up focus up
+bindsym $mod+$down focus down
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$down move down
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Tiling/Layout
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+Tab layout toggle tabbed splitting
+
+bindsym $mod+w mode "resize"
+
+mode "resize" {
+    bindsym $left  resize shrink width 10 px
+    bindsym $down  resize grow height 10 px
+    bindsym $up    resize shrink height 10 px
+    bindsym $right resize grow width 10 px
+
+    bindsym Right resize shrink width 10 px
+    bindsym Down  resize grow height 10 px
+    bindsym Up    resize shrink height 10 px
+    bindsym Left  resize grow width 10 px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Volume
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+# Disable Window Title
+default_border pixel 2
+
+# SS
+bindsym Print exec grimshot --notify copy area
+
+# Other
+gaps outer 6
+
+bar {
+    swaybar_command waybar
+}
+
+# Window Theme Colors
+# class                 border        backgr.       text         indicator     child_border
+client.focused          $mint_bright  $mint_bright  $bg_dark     $mint_muted   $mint_bright
+client.focused_inactive $gray_cool    $gray_cool    $gray_text   $bg_dark      $gray_cool
+client.unfocused        $bg_dark      $bg_dark      $gray_text   $bg_dark      $bg_dark
+client.urgent           #ff6b6b       #232135       #ffffff      #ff6b6b       #ff6b6b
