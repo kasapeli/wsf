@@ -47,6 +47,7 @@
   # ];
 
   services.openssh.enable = true;
+  programs.ssh.startAgent = true;
 
   system.stateVersion = "26.05";
 

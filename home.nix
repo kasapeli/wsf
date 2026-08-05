@@ -9,6 +9,7 @@
   home.packages = with pkgs; [
     git
     helix
+    firefox
     htop
   ];
 
