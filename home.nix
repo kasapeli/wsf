@@ -16,6 +16,7 @@
     awww
     swayidle    
     sway-contrib.grimshot
+    playerctl
     wl-clipboard
 
     # CLI

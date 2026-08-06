@@ -10,6 +10,12 @@
   # Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "thinkpad_acpi" "coretemp" ];
+  boot.extraModprobeConfig = ''
+    options thinkpad_acpi fan_control=1
+  '';
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -49,7 +55,7 @@
     STOP_CHARGE_THRESH_BAT0 = 80;
     };
   };
-  
+ 
   users.users.yan = {
      isNormalUser = true;
      extraGroups = [ "wheel" "networkmanager" ];
@@ -58,6 +64,8 @@
      ];
    };
 
+   services.thermald.enable = true;
+   services.throttled.enable = true;
    
   programs.gpu-screen-recorder = {
     package = inputs.gsr-ui-nix.packages.${pkgs.stdenv.hostPlatform.system}.gpu-screen-recorder;
